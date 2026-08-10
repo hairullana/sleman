@@ -214,8 +214,11 @@
     <div id="iframe-container"></div>
 
     <script>
+        // Password Hash SHA-256 ("swasembada")
         const PASSWORD_HASH = "5891df7fb47b72ae88b2866e7da36cb452738a0fadcd326dadac6cef350aa931";
-        const ENCRYPTED_URL = "aHR0cHM6Ly9leHBlcmllbmNlLmFyY2dpcy5jb20vZXhwZXJpZW5jZS8xNzFlNmExN2JkOGM0ZmNhYmYyMmNhY2ZmZTdmMTQ5OQ==";
+        
+        // Encrypted URL (Base64) basisdatalahan.hub.arcgis.com
+        const ENCRYPTED_URL = "aHR0cHM6Ly9iYXNpc2RhdGFsYWhhbi5odWIuYXJjZ2lzLmNvbS9wYWdlcy85NTVmZGUzYzZhODc0ZGM4ODA5MTBhYTkxZWQ3ZmE4ZQ==";
 
         function verifikasiAkses() {
             const inputPass = document.getElementById('input-pass').value;
@@ -228,18 +231,16 @@
                 // Sembunyikan form login
                 document.getElementById('login-container').style.display = 'none';
 
-                // Decode URL Base64 kembali menjadi URL Asli saat login sukses
+                // Decode URL dari Base64
                 const realURL = atob(ENCRYPTED_URL);
 
-                // Inject Iframe
+                // Inject Iframe secara dinamis
                 const container = document.getElementById('iframe-container');
                 container.style.display = 'block';
 
                 const iframe = document.createElement('iframe');
-                iframe.src = realURL; // Real URL baru di-assign di sini saat runtine
-                iframe.allow = "fullscreen";
-                // Perbarui atribut sandbox menjadi seperti ini, Yang Mulia:
-                iframe.sandbox = "allow-scripts allow-same-origin allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox";
+                iframe.src = realURL;
+                iframe.allow = "fullscreen; geolocation"; // Tanpa sandbox agar ArcGIS Hub/Auth berjalan lancar
 
                 container.appendChild(iframe);
             } else {
