@@ -238,7 +238,8 @@
                 const iframe = document.createElement('iframe');
                 iframe.src = realURL; // Real URL baru di-assign di sini saat runtine
                 iframe.allow = "fullscreen";
-                iframe.sandbox = "allow-scripts allow-same-origin allow-forms allow-modals";
+                // Perbarui atribut sandbox menjadi seperti ini, Yang Mulia:
+                iframe.sandbox = "allow-scripts allow-same-origin allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox";
 
                 container.appendChild(iframe);
             } else {
